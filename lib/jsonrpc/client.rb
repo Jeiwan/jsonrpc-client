@@ -101,7 +101,7 @@ module JSONRPC
 
   private
     def send_batch_request(batch)
-      post_data = ::MultiJson.encode(batch)
+      post_data = ::MultiJson.encode(batch.map(&:to_json))
       resp = @helper.connection.post(@url, post_data, @helper.options)
       if resp.nil? || resp.body.nil? || resp.body.empty?
         raise ::JSONRPC::Error::InvalidResponse.new
